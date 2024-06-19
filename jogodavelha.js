@@ -1,28 +1,24 @@
-const board = document.getElementById("board");
-const casinhas = board.getElementsByClassName("casinha");
-const boxVencedor = document.getElementById("vencedor");
+const casinhas = document.querySelectorAll('.casinha');
+const boxVencedor = document.getElementById('vencedor');
 
-let jogadas = 0;
+let jogadorAtual = 'X';
 let jogoAcabou = false;
 
-for (let i = 0; i < casinhas.length; i++) {
-  casinhas[i].addEventListener('click', casinhaclick);
-}
+casinhas.forEach(casinha => {
+  casinha.addEventListener('click', handleClick);
+});
 
-function casinhaclick() {
-  if (jogoAcabou || this.innerHTML !== "") return; // Não permitir jogadas se o jogo já acabou ou a casa já estiver preenchida
-
-  if (jogadas % 2 === 0) {
-    this.innerHTML = "X";
-  } else {
-    this.innerHTML = "O";
-  }
-  jogadas += 1;
+function handleClick() {
+  if (jogoAcabou) return;
   
-  verificaGanhador();
+  if (this.innerHTML === '') {
+    this.innerHTML = jogadorAtual;
+    verificarVencedor();
+    jogadorAtual = jogadorAtual === 'X' ? 'O' : 'X'; // Troca de jogador
+  }
 }
 
-function verificaGanhador() {
+function verificarVencedor() {
   const linhas = [
     [0, 1, 2], // primeira linha
     [3, 4, 5], // segunda linha
@@ -36,18 +32,26 @@ function verificaGanhador() {
 
   for (let linha of linhas) {
     const [a, b, c] = linha;
-    if (casinhas[a].innerHTML !== "" &&
+    if (casinhas[a].innerHTML !== '' &&
         casinhas[a].innerHTML === casinhas[b].innerHTML &&
         casinhas[b].innerHTML === casinhas[c].innerHTML) {
-      boxVencedor.innerHTML = "O '" + casinhas[a].innerHTML + "' Venceu!";
+      boxVencedor.innerHTML = `${casinhas[a].innerHTML} Venceu!`;
       jogoAcabou = true;
       return;
     }
   }
 
   // Verificar se todas as casinhas estão preenchidas (empate)
-  if (jogadas === 9) {
-    boxVencedor.innerHTML = "Empate!";
+  let todasPreenchidas = true;
+  for (let casinha of casinhas) {
+    if (casinha.innerHTML === '') {
+      todasPreenchidas = false;
+      break;
+    }
+  }
+
+  if (todasPreenchidas && !jogoAcabou) {
+    boxVencedor.innerHTML = 'Empate!';
     jogoAcabou = true;
   }
 }
