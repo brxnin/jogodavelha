@@ -1,22 +1,46 @@
+<!DOCTYPE html>
 <html>
-  <head>
-    <link href="jogodavelha.css" rel="stylesheet" type="text/css" />
-  </head>
-  <body>
-    <h1>Jogo da Velha</h1>
-    <div id="board">
-      <!-- criar 9 casinhas -->
-      <div class="casinha"></div>
-      <div class="casinha gray"></div>
-      <div class="casinha"></div>
-      <div class="casinha gray"></div>
-      <div class="casinha"></div>
-      <div class="casinha gray"></div>
-      <div class="casinha"></div>
-      <div class="casinha gray"></div>
-      <div class="casinha"></div>
-    </div>
-    <div id="vencedor"></div>
-    <script type="text/javascript" src="jogodavelha.js"></script>
-    </body>
+<head>
+  <link href="jogodavelha.css" rel="stylesheet" type="text/css" />
+  <style>
+    #board {
+      border: thin solid red;
+      width: 420px;
+      height: 420px;
+      overflow: hidden;
+    }
+
+    .casinha {
+      width: 135px;
+      height: 135px;
+      border: thin solid;
+      float: left;
+      text-align: center;
+      line-height: 135px;
+      font-size: 80px;
+    }
+
+    .gray {
+      background: black;
+      color: #ffffff;
+    }
+  </style>
+</head>
+<body>
+  <h1>Jogo da Velha</h1>
+  <div id="board">
+    <!-- criar 9 casinhas -->
+    <div class="casinha"></div>
+    <div class="casinha gray"></div>
+    <div class="casinha"></div>
+    <div class="casinha gray"></div>
+    <div class="casinha"></div>
+    <div class="casinha gray"></div>
+    <div class="casinha"></div>
+    <div class="casinha gray"></div>
+    <div class="casinha"></div>
+  </div>
+  <div id="vencedor"></div>
+  <script type="text/javascript" src="jogodavelha.js"></script>
+</body>
 </html>
