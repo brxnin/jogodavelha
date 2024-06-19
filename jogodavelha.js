@@ -1,6 +1,7 @@
 document.addEventListener('DOMContentLoaded', function() {
     const casinhas = document.querySelectorAll('.casinha');
     const boxVencedor = document.getElementById('vencedor');
+    const restartButton = document.getElementById('restart');
   
     let jogadorAtual = 'X';
     let jogoAcabou = false;
@@ -13,6 +14,10 @@ document.addEventListener('DOMContentLoaded', function() {
         verificarVencedor();
         jogadorAtual = jogadorAtual === 'X' ? 'O' : 'X'; // Troca de jogador
       });
+    });
+  
+    restartButton.addEventListener('click', function() {
+      resetarJogo();
     });
   
     function verificarVencedor() {
@@ -32,7 +37,7 @@ document.addEventListener('DOMContentLoaded', function() {
         if (casinhas[a].innerHTML !== '' &&
             casinhas[a].innerHTML === casinhas[b].innerHTML &&
             casinhas[b].innerHTML === casinhas[c].innerHTML) {
-          boxVencedor.innerHTML = `${casinhas[a].innerHTML} Venceu!`;
+          exibirResultado(`${casinhas[a].innerHTML} Venceu!`);
           jogoAcabou = true;
           return;
         }
@@ -48,9 +53,22 @@ document.addEventListener('DOMContentLoaded', function() {
       }
   
       if (todasPreenchidas && !jogoAcabou) {
-        boxVencedor.innerHTML = 'Empate!';
+        exibirResultado('Empate!');
         jogoAcabou = true;
       }
+    }
+  
+    function exibirResultado(mensagem) {
+      boxVencedor.innerHTML = `<p>${mensagem}</p>`;
+    }
+  
+    function resetarJogo() {
+      casinhas.forEach(casinha => {
+        casinha.innerHTML = '';
+      });
+      boxVencedor.innerHTML = '';
+      jogoAcabou = false;
+      jogadorAtual = 'X';
     }
   });
   
