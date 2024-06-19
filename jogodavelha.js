@@ -106,8 +106,16 @@
         return;
       }
 
-      // Se todas as casinhas estiverem preenchidas e não houver vencedor
-      if (jogadas === 9) {
+      // Verificar se todas as casinhas estão preenchidas (empate)
+      let todasPreenchidas = true;
+      for (let i = 0; i < casinhas.length; i++) {
+        if (casinhas[i].innerHTML === "") {
+          todasPreenchidas = false;
+          break;
+        }
+      }
+
+      if (todasPreenchidas) {
         boxVencedor.innerHTML = "Empate!";
         jogoAcabou = true;
       }
